@@ -72,10 +72,11 @@ confidence_summary = database.execute("""
         END
 """).fetchdf()
 
-st.bar_chart(
-    confidence_summary.set_index("demand_confidence"),
-    y="product_count",
-)
+confidence_chart = confidence_summary.set_index(
+    "demand_confidence"
+)[["product_count"]]
+
+st.bar_chart(confidence_chart)
 
 st.caption(
     "Low-confidence products have fewer than 3 observed units sold. "
